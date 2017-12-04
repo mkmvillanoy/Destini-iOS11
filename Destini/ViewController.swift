@@ -34,29 +34,80 @@ class ViewController: UIViewController {
     @IBOutlet weak var bottomButton: UIButton!      // Has TAG = 2
     @IBOutlet weak var storyTextView: UILabel!
     
-    // TODO Step 5: Initialise instance variables here
-    
-    
-    
+    var storyIndex: Int = 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        // TODO Step 3: Set the text for the storyTextView, topButton, bottomButton, and to T1_Story, T1_Ans1, and T1_Ans2
+        updateUI()
         
     }
 
     
     // User presses one of the buttons
     @IBAction func buttonPressed(_ sender: UIButton) {
-    
-        // TODO Step 4: Write an IF-Statement to update the views
-                
-        // TODO Step 6: Modify the IF-Statement to complete the story
         
-    
+        if sender.tag == 1 {
+            if storyIndex == 1 || storyIndex == 2{
+                storyIndex = 3
+            } else if storyIndex == 3 {
+                storyIndex = 6
+            } else {
+                storyIndex = 1
+            }
+        } else if sender.tag == 2 {
+            if storyIndex == 1 {
+                storyIndex = 2
+            } else if storyIndex == 2 {
+                storyIndex = 4
+            } else if storyIndex == 3 {
+                storyIndex = 5
+            }
+        }
+        
+        updateUI()
     }
+    
+    func updateUI(){
+        
+        var chosenStory: String = ""
+        var chosenAnswer1: String = ""
+        var chosenAnswer2: String = ""
+        if storyIndex == 1 {
+            chosenStory = story1
+            chosenAnswer1 = answer1a
+            chosenAnswer2 = answer1b
+        } else if storyIndex == 2 {
+            chosenStory = story2
+            chosenAnswer1 = answer2a
+            chosenAnswer2 = answer2b
+        } else if storyIndex == 3 {
+            chosenStory = story3
+            chosenAnswer1 = answer3a
+            chosenAnswer2 = answer3b
+        } else if storyIndex == 4 {
+            chosenStory = story4
+        } else if storyIndex == 5 {
+            chosenStory = story5
+        } else if storyIndex == 6 {
+            chosenStory = story6
+        }
+        
+        storyTextView.text = chosenStory
+        
+        if storyIndex <= 3{
+            topButton.isHidden = false
+            bottomButton.isHidden = false
+            topButton.setTitle(chosenAnswer1, for: UIControlState.normal)
+            bottomButton.setTitle(chosenAnswer2, for: UIControlState.normal)
+        }else{
+            topButton.setTitle("Try Again?", for: UIControlState.normal)
+            bottomButton.isHidden = true
+        }
+        
+    }
+    
+  
     
 
 
